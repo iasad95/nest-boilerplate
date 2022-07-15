@@ -1,22 +1,16 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 describe('AppController', () => {
-  let appController: AppController;
+  it('delegates health check to AppService', () => {
+    const health = { service: 'Nest API', status: 'ok' };
+    const appService: Pick<AppService, 'getHealth'> = {
+      getHealth: jest.fn().mockReturnValue(health),
+    };
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+    const controller = new AppController(appService as AppService);
 
-    appController = app.get<AppController>(AppController);
-  });
-
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+    expect(controller.getHealth()).toEqual(health);
+    expect(appService.getHealth).toHaveBeenCalledTimes(1);
   });
 });

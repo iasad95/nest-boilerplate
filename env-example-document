@@ -1,0 +1,15 @@
+NODE_ENV=development
+APP_PORT=3000
+API_PREFIX=api
+CORS_ORIGIN=*
+SEED_USER_PASSWORD=ChangeMe_BeforeSeeding!
+
+DATABASE_TYPE=mongodb
+DATABASE_PORT=27017
+DATABASE_USERNAME=root
+DATABASE_PASSWORD=secret
+DATABASE_NAME=api
+DATABASE_URL=mongodb://mongo:27017
+
+AUTH_JWT_SECRET=change-me-to-a-secure-random-string-min-32-chars
+AUTH_JWT_TOKEN_EXPIRES_IN=1d
